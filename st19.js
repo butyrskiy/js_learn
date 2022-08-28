@@ -4,7 +4,7 @@ const STATUS = {
 	DONE: "Done",
 }
 
-const list = {}
+const list = {};
 
 function addTask(nameTask, statusTask) {
 	if(typeof(nameTask) === "string" && typeof(statusTask) === "string") {
