@@ -31,3 +31,5 @@ console.log(sample9);
 console.log(sample10);
 console.log(sample11);
 console.log(sample12);
+
+console.log("Line from user2")
