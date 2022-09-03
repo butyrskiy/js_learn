@@ -1,3 +1,5 @@
+// Задача создать различные переменные и вывести их в консоль 
+
 let a = 10;
 let b = 10;
 let c = a + b;
@@ -14,5 +16,3 @@ console.log(any);
 console.log(typeof a);
 console.log(typeof word);
 console.log(typeof any);
-
-console.log("Line from user1")
