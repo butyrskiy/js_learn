@@ -1,3 +1,5 @@
+// Задача: напишите программу с разными математическими операторами и разными типами данных. Например, сложите строки, строку с числом, число с булевым значением и так далее
+
 let a = "Denis";
 let b = 33;
 let c = true;
@@ -31,5 +33,3 @@ console.log(sample9);
 console.log(sample10);
 console.log(sample11);
 console.log(sample12);
-
-console.log("Line from user2")
