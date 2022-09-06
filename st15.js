@@ -107,3 +107,22 @@ for (let value of users) {
   //   console.log(value.name);
   //   console.log(value.age);
 }
+//
+//
+console.log('***');
+console.log(
+  'Example #7. На основе строки “i am in the easycode” сделать новую строку где первые буквы каждого слова будут в верхнем регистре. Использовать for или while.'
+);
+console.log('***');
+
+let str = 'i am in the easycode';
+let newStr = ' ';
+
+for (let i = 0; i < str.length; i++) {
+  if (str[i - 1] === ' ' || i === 0) {
+    newStr += str[i].toUpperCase();
+  } else {
+    newStr += str[i];
+  }
+}
+console.log(newStr);
