@@ -109,3 +109,18 @@ if (
 } else {
   console.log(item.price);
 }
+//
+//
+console.log('***');
+console.log('Example #6');
+console.log('***');
+//
+//
+let question = prompt('Какое "официальное" название JavaScript?', 'Name');
+if(question === 'ECMAScript') {
+  alert('Верно!');
+} else {
+  alert('Не знаете? “ECMAScript”!');
+}
+//
+//

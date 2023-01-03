@@ -33,7 +33,7 @@ console.log(sample10);
 console.log(sample11);
 console.log(sample12);
 
-// Пример с курсов Дениса Мещерякова
+// Пример
 let value;
 
 // Number to string
