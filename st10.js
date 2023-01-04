@@ -3,7 +3,7 @@ console.log('Example #1');
 console.log('***');
 //
 //
-let login = prompt('Введите логин');
+/* let login = prompt('Введите логин');
 
 if (login == 'admin') {
   let pass = prompt('Введите пароль');
@@ -19,7 +19,7 @@ if (login == 'admin') {
   alert('Отменено');
 } else {
   alert('Я вас не знаю');
-}
+} */
 //
 //
 console.log('***');
@@ -116,11 +116,76 @@ console.log('Example #6');
 console.log('***');
 //
 //
-let question = prompt('Какое "официальное" название JavaScript?', 'Name');
+/* let question = prompt('Какое "официальное" название JavaScript?', 'Name');
 if(question === 'ECMAScript') {
   alert('Верно!');
 } else {
   alert('Не знаете? “ECMAScript”!');
+} */
+//
+//
+console.log('***');
+console.log('Example #7');
+console.log('***');
+//Нужно написать условие для действий пешехода при различных сигналах светофора.
+//Если сигнал красный, то надо стоять, иначе, если желтый - надо приготовиться, а иначе - можно идти.
+
+let light = 'red';
+
+if(light != 'red' & light != 'yellow'){
+  people = 'Go!';
+} else if(light == 'red'){
+  people = 'Stop';
+} else if(light == 'yellow'){
+  people = 'get ready';
 }
+
+console.log(light);
+console.log(people);
 //
 //
+console.log('***');
+console.log('Example #8');
+console.log('***');
+/* Напишите условие if для проверки, что переменная age находится в диапазоне между 14 и 90 включительно.
+«Включительно» означает, что значение переменной age может быть равно 14 или 90. */
+
+function checkAge(age) {
+  if(age >= 14 & age <=90) {
+    console.log('Valid Age!');
+  } else{
+    console.log('Invalid age :(');
+  }
+}
+
+checkAge(14);
+//
+//
+console.log('***');
+console.log('Example #9');
+console.log('***');
+/* Напишите условие if для проверки, что значение переменной age НЕ находится в диапазоне 14 и 90 включительно.
+
+Напишите два варианта: первый с использованием оператора НЕ !, второй – без этого оператора.
+ */
+
+function checkAge(age) {
+  if(!(age >= 14 && age <= 90)) {
+  console.log('Valid Age!');
+  } else{
+  console.log('Invalid age :(');
+  }
+}
+
+checkAge(15);
+
+//
+function checkAge2(age2) {
+  if(age2 < 14 || age2 > 90) {
+    console.log('Valid Age!');
+  } else{
+    console.log('Invalid age :(');
+  }
+}
+
+checkAge2(190);
