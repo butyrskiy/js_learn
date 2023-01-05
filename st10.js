@@ -189,3 +189,35 @@ function checkAge2(age2) {
 }
 
 checkAge2(190);
+//
+//
+console.log('***');
+console.log('Example #10');
+console.log('***');
+/* Напишите код, который будет спрашивать логин с помощью prompt.
+
+Если посетитель вводит «Admin», то prompt запрашивает пароль, если ничего не введено или нажата клавиша Esc – показать «Cancelled», в противном случае отобразить «I do not know you».
+
+Пароль проверять так:
+
+Если введён пароль «Boss», то выводить «Hi, Boss!»,
+Иначе – «Invalid password»,
+При отмене – «Cancelled». */
+
+let login = prompt('Enter your login', '');
+
+if(login === 'Admin') {
+  let password = prompt('Enter your password')
+  
+  if(password === 'Boss') {
+    alert('Hi, Boss!');
+  } else if (password === null) {
+    alert('Cancelled');
+  } else {
+    alert('Invalid password');
+  }
+} else if(login === null || login === '') {
+      alert('Cancelled');
+} else {
+    alert('I do not know you');
+}
