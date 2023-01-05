@@ -1,15 +1,18 @@
-function calc(operator, a, b) {
-    if (operator == 'add') {
+function calc(a, b, identifier) {
+    if(identifier === 'add') {
         return a + b;
     }
-    else if (operator == 'multi') {
-        return a * b;
-    }
-    else if (operator == 'subtract') {
-        return a - b;
-    }
+   else if(identifier === 'multi') {
+    return a * b;
+   }
+   else if(identifier === 'sub') {
+    return a - b;
+   }
+   else {
+    console.log('Invalid identifier');
+   }
 }
 
-console.log (calc('add', 5, 5));
-console.log (calc('multi', 5, 5));
-console.log (calc('subtract', 10, 5));
+console.log(calc(1,2,'add'));
+console.log(calc(3,5,'multi'));
+console.log(calc(1,4,'sub'));
