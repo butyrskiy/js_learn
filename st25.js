@@ -128,6 +128,7 @@ const a = arr6.find(function(ele) {
 })
 console.log(a);
 
+console.log("*");
 // вариант с использованием стрелочной функции
 const b = arr6.find(ele => ele>4 && ele<10);
 console.log(b);
