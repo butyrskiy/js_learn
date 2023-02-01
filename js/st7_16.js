@@ -1,4 +1,4 @@
-/* const telegramContacts = {
+const telegramContacts = {
   Wife: 5053770520,
   'Father': 9050803377,
   'Mother': 9050801133,
@@ -14,12 +14,4 @@ telegramContacts.Friend = 'not a number';
 delete telegramContacts['Friend 0'];
 delete telegramContacts.Barnaul;
 
-console.log(telegramContacts); */
-
-
-const obj = {}
-const key = {}
-obj[key] = 'value for the object key'
-
-console.log(obj)
-// { '[object Object]': 'value for the object key' }
+console.log(telegramContacts);
