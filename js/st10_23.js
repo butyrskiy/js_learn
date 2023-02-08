@@ -1,7 +1,7 @@
 function showVerticalMessage(str) {
   let newStr;
   if(str[0] === 's') {
-    newStr = 'S' + str.slice(1);
+    newStr = str[0].toUpperCase() + str.slice(1);
     // console.log(newStr);
   } else newStr = str;
 
