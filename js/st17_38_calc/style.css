@@ -1,0 +1,28 @@
+body {
+  margin: 0 0;
+  background-color: #1E1E1E;
+  box-sizing: border-box;
+}
+
+.container { 
+  width: 550px;
+  height: 500px;
+  margin: 50px auto;
+
+  background-color: #FFFFFF;
+  border-radius: 10%;
+  border: 1px solid #000000;
+}
+
+.calc_container {
+  padding: 240px 100px;
+}
+
+.firstNumber,
+.secondNumber {
+  width: 105px;
+}
+
+.result {
+  margin-left: 10px;
+}
