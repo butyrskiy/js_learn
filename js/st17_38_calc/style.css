@@ -26,3 +26,11 @@ body {
 .result {
   margin-left: 10px;
 }
+
+.result_input {
+  width: 200px;
+  height: 150px;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: #8b72bf;
+}

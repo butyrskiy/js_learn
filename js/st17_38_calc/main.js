@@ -1,7 +1,8 @@
 const firstNum = document.querySelector('.firstNumber'),
       secondNum = document.querySelector('.secondNumber'),
       select = document.querySelector('.select'),
-      button = document.querySelector('.button');
+      button = document.querySelector('.button'),
+      result = document.querySelector('.result_input');
 
 
 function calc() {
@@ -12,15 +13,36 @@ function calc() {
   const firstOperand = firstNum.value,
         secondOperand = secondNum.value;
 
+  function addElement() {
+    const amount = document.createElement('div');
+    amount.textContent = spanResult.textContent;
+    amount.classList = 'res';
+    result.appendChild(amount);
+    console.log(amount);
+
+    function deleteElement() {
+      amount.remove();
+    }
+    amount.addEventListener('click', deleteElement);
+  }
+
   switch(operator) {
     case 'add':
-      return spanResult.innerHTML = +firstOperand + +secondOperand;
+      spanResult.innerHTML = +firstOperand + +secondOperand;
+      addElement();
+      break;
     case 'multi':
-      return spanResult.innerHTML = +firstOperand * +secondOperand;
+      spanResult.innerHTML = +firstOperand * +secondOperand;
+      addElement();
+      break;
     case 'subtract':
-      return spanResult.innerHTML = +firstOperand - +secondOperand;
+      spanResult.innerHTML = +firstOperand - +secondOperand;
+      addElement();
+      break;
     case 'division':
-      return spanResult.innerHTML = +firstOperand / +secondOperand;
+      spanResult.innerHTML = +firstOperand / +secondOperand;
+      addElement();
+      break;
     default:
       return 'Что-то сломалось';
   }
