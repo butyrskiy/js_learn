@@ -1,9 +1,10 @@
+import { OPERATORS } from './modules/constants.js';
+
 const firstNum = document.querySelector('.firstNumber'),
       secondNum = document.querySelector('.secondNumber'),
       select = document.querySelector('.select'),
       button = document.querySelector('.button'),
       result = document.querySelector('.result_input');
-
 
 function calc() {
   
@@ -25,21 +26,21 @@ function calc() {
     }
     amount.addEventListener('click', deleteElement);
   }
-
+  
   switch(operator) {
-    case 'add':
+    case OPERATORS.ADD:
       spanResult.innerHTML = +firstOperand + +secondOperand;
       addElement();
       break;
-    case 'multi':
+    case OPERATORS.MULTI:
       spanResult.innerHTML = +firstOperand * +secondOperand;
       addElement();
       break;
-    case 'subtract':
+    case OPERATORS.SUBTRACT:
       spanResult.innerHTML = +firstOperand - +secondOperand;
       addElement();
       break;
-    case 'division':
+    case OPERATORS.DIVISION:
       spanResult.innerHTML = +firstOperand / +secondOperand;
       addElement();
       break;
