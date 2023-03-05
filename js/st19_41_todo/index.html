@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style/style.css">
   <title>Todo</title>
 </head>
 <body>
@@ -16,21 +16,28 @@
       <main class="main">
         
         <h2>HIGH</h2>
-        
-        <form class="add_high_task">
+        <form class="high_task_form">
           <input class="high_input" type="text" placeholder="Add high priority task">
           <button class="high_button" type="submit"></button>
         </form>
 
-        <h2>LOW</h2>
+        <div class="high_task_list">
 
-        <form class="add_low_task">
-          <input class="low_input" type="text" placeholder="Add high priority task">
+        </div>
+
+        <h2>LOW</h2>
+        <form class="low_task_form">
+          <input class="low_input" type="text" placeholder="Add low priority task">
           <button class="low_button" type="submit"></button>
         </form>
+        
+        <div class="low_task_list">
 
+        </div>
+      
       </main>
     </div>
-  <script type="module" src="./js/main.js"></script>
+  <footer class="footer"></footer>
+  <script src="./js/main.js"></script>
 </body>
 </html>

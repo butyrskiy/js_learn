@@ -11,6 +11,13 @@ html, body {
   box-sizing: inherit;
 }
 
+ul,
+ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -47,7 +54,7 @@ form {
 .high_button,
 .low_button {
   position: absolute;
-  bottom: 9px;
+  bottom: 11px;
   left: 430px;
   border: none;
 
@@ -63,7 +70,7 @@ form {
   margin: 8px 0px;
 }
 
-.task_radio {
+.radio {
   position: absolute;
   bottom: 16px;
   left: 13px;
@@ -92,5 +99,5 @@ form {
 }
 
 .done {
-  background: #919191;
+  background: #9ff2cd;
 }

@@ -1,48 +1,195 @@
-const addHighTask = document.querySelector('.add_high_task'),
-      addLowTask = document.querySelector('.add_low_task'),
-      highInput = document.querySelector('.high_input'),
-      lowInput = document.querySelector('.low_input'),
-      highButton = document.querySelector('.high_button'),
-      lowButton = document.querySelector('.low_button'),
-      deleteButton = document.querySelector('.delete_button'),
-      newTaskHigh = document.querySelector('.new_task_high');
+const STATUS = {
+  TODO: 'Todo',
+  DONE: 'Done',
+}
+      
+const PRIORITY = {
+  LOW: 'Low',
+  HIGH: 'High',
+}
+
+const highTaskForm = document.querySelector('.high_task_form'),
+      highFormContent = document.querySelector('.high_input'),
+
+      lowTaskForm = document.querySelector('.low_task_form'),
+      lowFormContent = document.querySelector('.low_input'),
+
+      highTaskList = document.querySelector('.high_task_list'),
+      lowTaskList = document.querySelector('.low_task_list');
+
+
+let tasks = [];
+
+if(localStorage.getItem('tasks')) {
+  tasks = JSON.parse(localStorage.getItem('tasks'));
+  tasks.forEach(element => renderHigh(element));
+  tasks.forEach(element => renderLow(element));
+}
+
+highTaskForm.addEventListener('submit', addTaskHigh);
+highTaskList.addEventListener('click', deleteTaskHigh);
+highTaskList.addEventListener('click', taskDoneHigh);
+
+lowTaskForm.addEventListener('submit', addTaskLow);
+lowTaskList.addEventListener('click', deleteTaskLow);
+lowTaskList.addEventListener('click', taskDoneLow);
+
 
 
 function addTaskHigh(event) {
-  event.preventDefault();
-  addHighTask.insertAdjacentHTML('afterend', `<div class="new_task_high">
-  <input class="task_radio" type="radio">
-  <p class="task_text">
-    ${highInput.value}
-  </p>
-  <button class="delete_button" type="submit"></button>
-</div>`);
+    event.preventDefault();
+    const taskText = highFormContent.value;
+  
+    const newTask = {
+      id: Date.now(),
+      name: taskText, 
+      status: STATUS.TODO, 
+      priority: PRIORITY.HIGH,
+    };
+
+    tasks.push(newTask);
+
+    renderHigh(newTask);
+  
+    highFormContent.value = '';
+    highFormContent.focus();
+
+    addLocalStorage();
 }
 
 function addTaskLow(event) {
   event.preventDefault();
-  addLowTask.insertAdjacentHTML('afterend', `<div class="new_task_low">
-  <input class="task_radio" type="radio">
+  const taskText = lowFormContent.value;
+
+  const newTask = {
+    id: Date.now(),
+    name: taskText, 
+    status: STATUS.TODO, 
+    priority: PRIORITY.LOW,
+  };
+
+  tasks.push(newTask);
+
+  renderLow(newTask);
+
+  lowFormContent.value = '';
+  lowFormContent.focus();
+
+  addLocalStorage();
+}
+
+function deleteTaskHigh(event) {
+  if(event.target.className === 'delete_button') {
+    
+    const parentNode = event.target.closest('.new_task_high');
+
+    const id = Number(parentNode.id);
+    
+    const index = tasks.findIndex(elem => id === elem.id);
+    
+    tasks.splice(index, 1);
+
+    // tasks = tasks.filter(elem => elem.id !== id);
+
+    parentNode.remove();
+    // event.target.closest('div').remove();
+  }
+
+  addLocalStorage();
+}
+
+function deleteTaskLow(event) {
+  if(event.target.className === 'delete_button') {
+    
+    const parentNode = event.target.closest('.new_task_low');
+
+    const id = Number(parentNode.id);
+    
+    const index = tasks.findIndex(elem => id === elem.id);
+    
+    tasks.splice(index, 1);
+
+    // tasks = tasks.filter(elem => elem.id !== id);
+
+    parentNode.remove();
+    // event.target.closest('div').remove();
+  }
+
+  addLocalStorage();
+}
+
+function taskDoneHigh(event) {
+  if(event.target.className !== 'radio') return
+  
+  const parentNode = event.target.closest('.new_task_high');
+  
+  const id = Number(parentNode.id);
+  
+  const index = tasks.findIndex(elem => elem.id === id);
+  
+  tasks[index].status = STATUS.DONE;
+
+  const taskTitle = parentNode.querySelector('.task_text');
+
+  taskTitle.classList.toggle('done');
+
+  addLocalStorage();
+}
+
+function taskDoneLow(event) {
+  if(event.target.className !== 'radio') return
+  
+  const parentNode = event.target.closest('.new_task_low');
+  
+  const id = Number(parentNode.id);
+  
+  const index = tasks.findIndex(elem => elem.id === id);
+  
+  tasks[index].status = STATUS.DONE;
+
+  const taskTitle = parentNode.querySelector('.task_text');
+
+  taskTitle.classList.toggle('done');
+
+  addLocalStorage();
+}
+
+function addLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderHigh(element) {
+  let cssClass = 'new_task_high'; 
+  
+  if(element.status !== STATUS.TODO) {
+    cssClass = 'new_task_high done';
+  }
+
+  const taskHTML = `<div id="${element.id}" class="${cssClass}">
+  <input class="radio" type="radio">
   <p class="task_text">
-    ${lowInput.value}
+    ${element.name}
   </p>
   <button class="delete_button" type="submit"></button>
-</div>`);
+</div>`;
+
+  highTaskList.insertAdjacentHTML('beforeend', taskHTML);
 }
 
-function deleteTask(event) {
-  if(event.target.className == 'delete_button') {
-    event.target.parentElement.remove();
+function renderLow(element) {
+  let cssClass = 'new_task_low'; 
+  
+  if(element.status !== STATUS.TODO) {
+    cssClass = 'new_task_low done';
   }
-}
 
-function doneTask(event) {
-  if(event.target.className == 'task_radio') {
-    event.target.parentElement.classList.toggle('done');
-  }
-}
+  const taskHTML = `<div id="${element.id}" class="${cssClass}">
+  <input class="radio" type="radio">
+  <p class="task_text">
+    ${element.name}
+  </p>
+  <button class="delete_button" type="submit"></button>
+</div>`;
 
-addHighTask.addEventListener('submit', addTaskHigh);
-addLowTask.addEventListener('submit', addTaskLow);
-document.addEventListener('click', deleteTask);
-document.addEventListener('click', doneTask);
+  lowTaskList.insertAdjacentHTML('beforeend', taskHTML);
+}
