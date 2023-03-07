@@ -84,7 +84,7 @@ function deleteTaskHigh(event) {
     const parentNode = event.target.closest('.new_task_high');
 
     const id = Number(parentNode.id);
-    
+
     const index = tasks.findIndex(elem => id === elem.id);
     
     tasks.splice(index, 1);
