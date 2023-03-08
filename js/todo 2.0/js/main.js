@@ -15,6 +15,15 @@ const highForm = document.querySelector('.high_task_form'),
       highTaskList = document.querySelector('.high_task_list'),
       lowTaskList = document.querySelector('.low_task_list');
 
+highForm.addEventListener('submit', addTask);
+lowForm.addEventListener('submit', addTask);
+
+highTaskList.addEventListener('click', deleteTask);
+lowTaskList.addEventListener('click', deleteTask);
+
+highTaskList.addEventListener('click', checkTask);
+lowTaskList.addEventListener('click', checkTask);
+
 let tasks = [];
 
 function addTask(event) {
@@ -76,8 +85,9 @@ function deleteTask(event) {
   }
 }
 
-highForm.addEventListener('submit', addTask);
-lowForm.addEventListener('submit', addTask);
-
-highTaskList.addEventListener('click', deleteTask);
-lowTaskList.addEventListener('click', deleteTask);
+function checkTask(event) {
+  const parentNode = event.target.parentNode;
+  if(event.target.className === 'radio') {
+    parentNode.classList.toggle('done');
+  }
+}
