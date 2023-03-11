@@ -63,3 +63,30 @@ value5 = str.slice(0, -5); // 'Hello me name is'
 // ? Позволяет нам заменить значение в строке. Первый аргмент - что хотим заменить, второй аргумент - на что хотим замениит.
 let value6 = str.replace('Denis', 'Evgenia'); // 'Hello me name is Evgenia'
 // console.log(value6);
+
+// Todo. ШАБЛОННЫЕ СТРОКИ
+let str2;
+str2 = 'Hello my name is' + ' ' + firstName + ' ' + lastName + ', ' + age + ' ' + 'years old'; // Denis Butyrskiy, 34 years old 
+// таким образом можно создать строку, но это так себе способ, так как плохо читается и вообще некрасиво
+
+// правильный вариант
+str2 = `Hello my name is ${firstName} ${lastName}, ${age} years old`;
+
+console.log(str2);
+
+// ? Пример с HTML
+// Старый способ
+let HTML = '<ul>' + 
+            '<li>' + 'First name: ' + firstName + '</li>' +
+            '<li>' + 'Last name: ' + lastName + '</li>' +
+            '<li>' + 'Age: ' + age + '</li>' +
+            '</ul>';
+
+// Новый способ. ES6
+HTML = `<ul>
+          <li>First name: ${firstName}</li>
+          <li>Last name: ${lastName}</li>
+          <li>Age: ${age}</li>
+        </ul>
+`
+document.body.innerHTML = HTML;
