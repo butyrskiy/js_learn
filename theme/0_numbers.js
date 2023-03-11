@@ -43,4 +43,4 @@ value4 = Math.floor(Math.random() * 10 + 1); // если хотим получа
 // ? Получить рандомный элемент из массива мы можем следующим образом
 const arr = ['black', 'yellow', 'orange', 'white', 'blue', 'green', 'red'];
 let value5 = Math.floor(Math.random() * arr.length);
-console.log(value5, arr[value5]);
+// console.log(value5, arr[value5]);
