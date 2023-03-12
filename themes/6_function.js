@@ -79,14 +79,15 @@ function foo3() {
 foo3('Hello' , 33, [1, 2, 3]); // ['Hello', 33, Array(3), callee: ƒ, Symbol(Symbol.iterator): ƒ]
 
 
-// Todo. Функции высшего порядка - это функции, которые в качестве параметра принимают другие функции или возвращают функции
+// Todo. Функции высшего порядка - это функции, которые в качестве параметра принимают другие функции или возвращают другие функции
 
 // Todo. Callback-функции(колбеки) - это функции, которые были переданы в качестве параметров и вызваны внутри функции высшего порядка.
 
 // ? Предположим у нас есть задача создать новый массив «newArr» из элементов, которые будут длиной каждого элемента из текущего массива «arr». А потом добавляется задача перевести каждый элемент массива в верхний регистр
+
 const arr = ['Denis', 'Evgenia', 'Jam', 'John'];
 
-// ? Первый способ (долгий и неоптимальный)
+// ? Первый способ (долгий и неоптимальный). Под каждую задачу нужно писать новые цикли, создавать новые переменные.
 const newArr = [];
 for(i = 0; i < arr.length; i++) {
   newArr.push(arr[i].length);
@@ -100,6 +101,7 @@ for(i = 0; i < arr.length; i++) {
 // console.log(newArr2); // ['DENIS', 'EVGENIA', 'JAM', 'JOHN']
 
 // ? Второй способ
+// ? Создаём универсальная функцию, которая будет принимать любой массив и любую функцию и делать то, что мы в нашей функции
 function mapArray(arr, fn) {
   const res = [];
   for(i = 0; i < arr.length; i++) {
@@ -108,18 +110,83 @@ function mapArray(arr, fn) {
   return res;
 }
 
-function arrToUpperCase() {
-  const value = arr[i].toUpperCase();
+// функция обработчик
+function arrToUpperCase(el) {
+  const value = el.toUpperCase();
   return value;
+  // return el.toUpperCase(); // можно сразу вернуть элеменит без присвоения в переменную
 }
 
-function arrToNumber() {
-  const value = arr[i].length;
+// функция обработчик
+function arrToNumber(el) {
+  const value = el.length;
   return value;
+  // return el.lenght // можно сразу вернуть элеменит без присвоения в переменную
 }
 
 const arrUpperCase = mapArray(arr, arrToUpperCase);
-console.log(arrUpperCase);
+// console.log(arrUpperCase); // ['DENIS', 'EVGENIA', 'JAM', 'JOHN']
 
 const arrNumber = mapArray(arr, arrToNumber);
-console.log(arrNumber);
+// console.log(arrNumber); // [5, 7, 3, 4]
+
+
+// Todo. Пример функции высшего порядка, которая возвращает другую функцию
+function greeting(firstName) {
+  return function (lastName) {
+    return `Hello, ${firstName} ${lastName}`;
+  }
+}
+
+const testGreeting = greeting('Denis'); // возвращается функция
+
+// ? Теперь мы можем вызвать эту функцию, передав в неё «lastName»
+const result = testGreeting('Butyrskiy');
+// console.log(result); // 'Hello, Denis Butyrskiy'
+
+// ? Можно сделать даже так.
+const fullName = greeting('Denis')('Butyrskiy'); // так как функция «greeting» возвращает другую функцию в переменную «fullName», то мы сразу же можем вызвать её, передав параметр, который пойдёт в «lastName»
+// console.log(fullName); // 'Hello, Denis Butyrskiy'
+
+
+// ? Ещё пример функции высшего порядка, которая возвращает другую функцию
+function question(job) {
+  if(job === 'Developer') {
+    return function(name) {
+      return `${name}, что такое JavaScript?`;
+    }
+  } else if(job === 'Teacher') {
+    return function(name) {
+      return `${name}, какой предмет вы преподаёте?`;
+    }
+  }
+}
+
+// const developerQuestion = question('Developer')('Denis');
+// console.log(developerQuestion); // 'Denis, что такое JavaScript?'
+const developerQuestion = question('Developer');
+const developer = developerQuestion('Denis');
+// console.log(developer); // 'Denis, что такое JavaScript?'
+
+const teacherQuestion = question('Teacher');
+const teacher = teacherQuestion('Evgenia');
+// console.log(teacher); // Evgenia, какой предмет вы преподаёте?
+
+
+// ? Улучшение функции выше
+function question2(job) {
+  // добавляем словарь с вопросами. Такой код очень просто расширять, просто добавляем в словарь новую профессию
+  const jobDictionary = {
+    Developer: 'что такое JavaScript?',
+    Teacher: 'какой предмет вы преподаёте?'
+  }
+  
+  return function(name) {
+    return `${name}, ${jobDictionary[job]}`
+  }
+}
+
+const developerQuestion2 = question2('Developer');
+console.log(developerQuestion2('Denis')); // Denis, что такое JavaScript?
+const teacherQuestion2 = question2('Teacher');
+console.log(teacherQuestion2('Evgenia')); // Evgenia, какой предмет вы преподаёте?
