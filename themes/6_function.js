@@ -187,6 +187,90 @@ function question2(job) {
 }
 
 const developerQuestion2 = question2('Developer');
-console.log(developerQuestion2('Denis')); // Denis, что такое JavaScript?
+// console.log(developerQuestion2('Denis')); // Denis, что такое JavaScript?
 const teacherQuestion2 = question2('Teacher');
-console.log(teacherQuestion2('Evgenia')); // Evgenia, какой предмет вы преподаёте?
+// console.log(teacherQuestion2('Evgenia')); // Evgenia, какой предмет вы преподаёте?
+
+
+// Todo. ARROW FUNCTION. Стрелочные функции
+// ? Появились в ES6. Присваивается в переменную
+const plus = (a, b) => a + b; // короткая запись c двумя параметрами и одним действием. Не обязательно использовать фигурные скобки и «return»
+
+// console.log(plus(2, 3)); // 5
+const plus2 = a => a + 2; // короткая запись с одним пераметром и одним действием. Не обязательно использовать круглые скобки, фигурные скобки и «return»
+// console.log(plus2(2)); // 4
+
+const hello = () => console.log('Hello World!'); // синтаксис без параметров
+// console.log(hello()); // 'Hello World!' и «undefined»
+
+// ? Можно использовать параметры по-умолчанию
+const plus3 = (a = 0, b = 0) => a + b; // если при вызове не были переданы аргументы, то будут использованы параметры по-умолчинию
+// console.log(plus3()); // 0
+
+// ? Если в теле функции выполняется больше одного действия, то нужно использовать фигурные скобки и обязательно использовать «return».
+const moreAction = (a, b) => {
+  a *= 2;
+  b *= 3;
+  return a + b;
+}
+// console.log(moreAction(2, 2)); // 10
+
+// ? Возвращаем объект. Version #1
+const returnObj = (str = '') => {
+   const obj = {};
+   obj.value = str;
+   obj.length = str.length;
+   return obj;
+}
+// console.log(returnObj('Hello')); // {value: 'Hello', length: 5}
+
+// ? Возвращаем объект. Version #2
+const returnObj2 = (str = '') => {
+   return {
+    value: str,
+    length: str.length,
+   };
+}
+// console.log(returnObj('Hello')); // {value: 'Hello', length: 5}
+
+// ? Возвращаем объект. Version #3
+const returnObj3 = (str = '') => ({
+  value: str,
+  length: str.length,
+})
+// console.log(returnObj('Hello')); // {value: 'Hello', length: 5}
+
+
+// Todo. ОСНОВНЫЕ ОТЛИЧИЯ СТРЕЛОЧНЫХ ФУНКЦИЙ ОТ ОБЫЧНЫХ
+
+// ? У обычных функций есть псевдомассив коллекция «arguments». В которой содержаться все переданные в функцию аргументы, даже если их больше, чем параметров функции
+function foo(x, y) {
+  console.log(arguments);
+  return x + y;
+}
+// foo(1, 2, 3, 'Hello'); // 1, 2, 3, 'Hello', callee: ƒ, Symbol(Symbol.iterator): ƒ]
+
+// ? Стрелочные функции не имеют собственного контекста «this». Она его ищет на уровень выше и будет ссылаться на тот объект, в котором она была вызвана
+const obj = {
+  firstName: 'Denis',
+  surname: 'Butyrskiy',
+  age: 34,
+  getObj() {
+    console.log(this); // ссылается на объект, так как обычная функция
+  },
+  getName: () => console.log(this), // стрелочная, будет ссылаться на уровень выше «window»
+  getNameArrow: null,
+  getSurname() {
+    this.getNameArrow = () => console.log(this); // объявляем стрелочную функцию и присваимваем в другое свойство.
+  },
+  getAge() {
+    setTimeout(() => console.log(this)); // так тоже будет работать, так как вызываем стрелочную функцию внутри обычной, которая имеет контекст и так как стрелочная берёт контекст на уровень выше, то она его возьмёт у «getAge»
+  }
+}
+// obj.getObj(); // {firstName: 'Denis', surname: 'Butyrskiy', getObj: ƒ}
+// obj.getName(); // Window {window: Window, self: Window, document: …}
+obj.getSurname(); // присваиваем стрелочную функцию в «getNameArrow»
+// obj.getNameArrow(); // работает! получаем объект {firstName: 'Denis', surname: 'Butyrskiy', getObj: ƒ, getName: ƒ, getNameArrow: ƒ, …}
+// obj.getAge();
+
+// ? Обычно стрелочные функции не исопользуются как методы у объектов. Чаще всего их используют в качестве колбэков.
