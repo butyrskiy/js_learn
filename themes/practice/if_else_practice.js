@@ -4,9 +4,9 @@
 let value = 'hidden';
 
 // ? С помощью конструкции «if else»
-if(value === 'hidden') {
+/* if(value === 'hidden') {
   value = 'visible';
-} else value = 'hidden';
+} else value = 'hidden'; */
 // console.log(value);
 
 // ? С помощью тернарного оператора
@@ -24,13 +24,17 @@ value = (value === 'visible') ? 'visible' : 'hidden';
 
 let num = 15;
 
-if(num === 0) {
+/* if(num === 0) {
   num = 1;
 } else if(num < 0) {
   num = 'less then zero';
 } else if(num > 0) {
   num *= 10;
-}
+} */
+// console.log(num);
+
+// ? С помощью тернарного оператора
+num = num === 0 ? 1 : num < 0 ? 'less then zero' : num > 0 ? num *= 10 : num;
 // console.log(num);
 
 
@@ -73,7 +77,7 @@ if(item.discount && item.discount !== isNaN && item.price !== isNaN) {
 
 
 // ! ЗАДАЧА #4
-// ? Дан слудующий код
+// ? Дан следующий код
 
 let product = {
   name: 'Яблоко',
@@ -88,5 +92,35 @@ let max = 20; // максимальная цена
 let price = parseFloat(product.price);
 
 if(price >= min && price <= max) {
-  console.log(product.name);
+  // console.log(product.name);
 } else console.log('Product not found');
+
+
+// ! ЗАДАЧА #5
+// Todo. Записать в виде switch case следующее условие:
+// ? Записать условие, используя конструктор switch. В консоли должно отразиться только одно значение.
+/* if (a === 'block') {
+	console.log('block')
+} else if (a === 'none') {
+	console.log('none')
+} else if (a === 'inline') {
+console.log('inline')
+} else {
+	console.log('other')
+} */
+
+let a = 'inline';
+
+switch(a) {
+  case 'block':
+    console.log('block');
+    break;
+  case 'none':
+    console.log('none');
+    break;
+  case 'inline':
+    // console.log('inline');
+    break;
+  default:
+    console.log('other');
+}
