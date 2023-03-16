@@ -154,3 +154,80 @@ function funcGetUsers2(arr, key, value) {
 }
 // console.log(funcGetUsers2(users, 'gender', 'male')); // (2) [{…}, {…}]
 // console.log(funcGetUsers2(users, 'name', 'Denis')); // [{…}]
+
+
+// ! ЗАДАЧА #9
+// Todo. Создать две функции и дать им осмысленные названия:
+// ? - первая функция принимает массив и колбэк (одна для всех вызовов)
+// ? - вторая функция (колбэк) обрабатывает каждый элемент массива (для каждого вызова свой callback)
+
+// ? Первая функция возвращает строку “New value: ” и результат обработки:
+// * firstFunc([‘my’, ‘name’, ‘is’, ‘Trinity’], handler1) → “New value: MyNameIsTrinity”
+// * firstFunc([10, 20, 30], handler2) → “New value: 100, 200, 300,”
+// * firstFunc([{age: 45, name: ‘Jhon’}, {age: 20, name: ‘Aaron’}], handler3) →“New value: Jhon is 45, Aaron is 20,”
+// * firstFunc([‘abc’, ‘123’], handler4) → “New value: cba, 321,” // строки инвертируются
+
+// ? Подсказка: secondFunc должна быть представлена функцией, которая принимает один аргумент (каждый элемент массива) и возвращает результат его обработки
+
+function getValue(arr, handler) {
+  let res = `New value: `
+
+  for(let i = 0; i < arr.length; i++) {
+    res += handler(arr[i]);
+  }
+  return res;
+}
+
+// ? функция обработчик #1
+function handler1(item) {
+  return item[0].toUpperCase() + item.slice(1);
+}
+const res1 = getValue(['my', 'name', 'is', 'Trinity'], handler1); 
+// console.log(res1); // 'New value: MyNameIsTrinity'
+
+// ? функция обработчик #2
+function handler2(item) {
+  return item * 10 + ',' + ' ';
+}
+const res2 = getValue([10, 20, 30], handler2);
+// console.log(res2); // 'New value: 100, 200, 300,'
+
+// ? функция обработчик #3
+function handler3(item) {
+  return `${item.name} is ${item.age}, `
+}
+const res3 = getValue([{age: 45, name: 'Jhon'}, {age: 20, name: 'Aaron'}], handler3);
+// console.log(res3); // 'New value: Jhon is 45, Aaron is 20,'
+
+// ? функция обработчик #4
+function handler4(item) {
+  return item.split('').reverse().join('') + ', ';
+}
+const res4 = getValue(['abc', '123'], handler4);
+// console.log(res4); // 'New value: cba, 321,'
+
+
+// ! ЗАДАЧА #10
+// Todo. Написать аналог метода every. Создайте функцию every, она должна принимать первым аргументом массив чисел (обязательно проверьте что передан массив). Вторым аргументом callback (обязательно проверьте что передана функция)
+// ? функция должна возвращать true или false в зависимости от результата вызова callback (проверить число больше 5). 
+// ? Callback  должен принимать один элемент массива, его индекс в массиве и весь массив.
+
+
+function every(numArr, callback) {
+  if(!Array.isArray(numArr)) return `'${numArr}' is not array!`
+
+  for(let i = 0; i < numArr.length; i++) {
+    if(!callback(numArr[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function checkNumber(item) {
+  if(item > 5) {
+    return true;
+  }
+}
+const res5 = every([6,13,7], checkNumber);
+console.log(res5);
