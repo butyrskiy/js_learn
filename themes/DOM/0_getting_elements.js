@@ -31,7 +31,19 @@ const titles = document.querySelectorAll('h1');
 // console.log(div.firstChild);
 
 // ? elem.firstChild - вернёт первый элемент внутри элемента
-console.log(div.firstElementChild);
+// console.log(div.firstElementChild);
 
 
 // ! Есть УЗЛЫ, которыми могут текст в виде переноса строк, комментарии. И есть ЭЛЕМЕНТЫ - это теги
+
+
+// Todo. СВОЙСТВА ДЛЯ ПОЛУЧЕНИЯ РОДИТЕЛЬСКИХ ЭЛЕМЕНТОВ
+// ? Свойство parentElement возвращает родитель-элемент, а parentNode возвращает «любого родителя». Обычно эти свойства одинаковы: они оба получают родителя.
+// console.log(div.parentElement);
+// console.log(div.parentNode);
+
+const link = document.querySelector('.link');
+// console.log(link.parentElement);
+
+// ? Метод Element.closest() возвращает ближайший родительский элемент (или сам элемент), который соответствует заданному CSS-селектору или null, если таковых элементов вообще нет.
+console.log(link.closest('.content'));
