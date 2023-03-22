@@ -42,7 +42,7 @@ xhr.addEventListener('load', () => {
   console.log(xhr.responseText);
 });
 
-// console.log(xhr.responseText) // ! не сработает, получим пустую строку
+// console.log(xhr.responseText) // ! не сработает вне обработчика, получим пустую строку
 
 
 // Todo. Мы также можем обрабатывать ошибки, подписавшись на СОБЫТИЕ «ERROR»
@@ -77,23 +77,24 @@ const container = document.querySelector('.container');
 
 function renderPosts(response) {
   const fragment = document.createDocumentFragment();
-    response.forEach(post => {
-      const card = document.createElement('div');
-      card.classList.add('card');
-      const cardBody = document.createElement('div');
-      cardBody.classList.add('card-body');
-      const title = document.createElement('h5');
-      title.classList.add('card-title');
-      title.textContent = post.title;
-      const article  = document.createElement('p');
-      article.classList.add('card-text');
-      article.textContent = post.body;
-      cardBody.appendChild(title);
-      cardBody.appendChild(article);
-      card.appendChild(cardBody);
-      fragment.appendChild(card);
-    });
-    container.appendChild(fragment);
+  
+  response.forEach(post => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    const title = document.createElement('h5');
+    title.classList.add('card-title');
+    title.textContent = post.title;
+    const article  = document.createElement('p');
+    article.classList.add('card-text');
+    article.textContent = post.body;
+    cardBody.appendChild(title);
+    cardBody.appendChild(article);
+    card.appendChild(cardBody);
+    fragment.appendChild(card);
+  });
+  container.appendChild(fragment);
 }
 
 btn.addEventListener('click', (e) => {
