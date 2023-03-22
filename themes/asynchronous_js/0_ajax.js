@@ -1,3 +1,5 @@
+// ! РАБОТА С GET-ЗАПРОСОМ
+
 // Todo. СОЗДАЁМ «ЭКЗЕМПЛЯР XMLHttpRequest»
 // ? Он возвращает объект
 
@@ -72,26 +74,33 @@ function getPosts(cb) {
   xhr.send();
 }
 
-const btn = document.querySelector('button');
+const btn = document.querySelector('.btn-get-posts');
+const btnAddPost = document.querySelector('.btn-add-post');
 const container = document.querySelector('.container');
+
+function cardTemplate(post) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+  const title = document.createElement('h5');
+  title.classList.add('card-title');
+  title.textContent = post.title;
+  const article  = document.createElement('p');
+  article.classList.add('card-text');
+  article.textContent = post.body;
+  cardBody.appendChild(title);
+  cardBody.appendChild(article);
+  card.appendChild(cardBody);
+
+  return card;
+}
 
 function renderPosts(response) {
   const fragment = document.createDocumentFragment();
   
   response.forEach(post => {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-    const title = document.createElement('h5');
-    title.classList.add('card-title');
-    title.textContent = post.title;
-    const article  = document.createElement('p');
-    article.classList.add('card-text');
-    article.textContent = post.body;
-    cardBody.appendChild(title);
-    cardBody.appendChild(article);
-    card.appendChild(cardBody);
+    const card = cardTemplate(post);
     fragment.appendChild(card);
   });
   container.appendChild(fragment);
@@ -99,4 +108,37 @@ function renderPosts(response) {
 
 btn.addEventListener('click', (e) => {
   getPosts(renderPosts);
+});
+
+
+// ! РАБОТА С POST-ЗАПРОСОМ
+ 
+function createPost(body, cb) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts');
+  xhr.addEventListener('load', () => {
+    const response = JSON.parse(xhr.responseText); // ? Преобразуем JSON в массив
+    cb(response); // ? передаём полученные данные в колбэк 
+  });
+
+  xhr.setRequestHeader('Content-type', 'application/json');
+
+  xhr.addEventListener('error', () => {
+    console.log('error');
+  });
+
+  xhr.send(JSON.stringify(body));
+}
+
+btnAddPost.addEventListener('click', (e) => {
+  const newPost = {
+    title: 'foo',
+    body: 'bar',
+    userId: 1,
+  }
+
+  createPost(newPost, response => {
+    const card = cardTemplate(response);
+    container.appendChild(card);
+  });
 });
