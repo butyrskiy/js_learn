@@ -19,6 +19,11 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  background-color: black;
+  color: burlywood;
+}
+
 input {
   border-style: none;
   height: 45px;
@@ -26,7 +31,7 @@ input {
 
 .container {
   width: 594px;
-  height: 458px;
+  height: 476px;
   margin: 10px auto;
   border: 1px solid black;
 }
@@ -95,7 +100,14 @@ button {
 }
 
 .info-current-city {
+  font-size: 35px;
   margin-left: 13px;
+  margin-bottom: 10px;
+}
+
+.add-city {
+  margin-top: 30px;
+  margin-right: 5px;
 }
 
 .heart {
@@ -113,6 +125,10 @@ button {
 
 .tabs-now {
   height: 345px;
+}
+
+.tabs {
+  padding: 9px;
 }
 
 .tabs-list {
