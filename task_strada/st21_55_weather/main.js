@@ -3,104 +3,107 @@ const searchForm = document.querySelector('.search-form'),
       temperatureNow = document.querySelector('.temperature'),
       cityNow = document.querySelector('.info-current-city'),
       addCity = document.querySelector('.add-city'),
-      locationsList = document.querySelector('.locations-list');
+      locationsList = document.querySelector('.locations-list'),
+      tabsList = document.querySelector('.tabs-list'),
+      tabsNow = document.querySelector('.tabs-now'),
+      tabsDetails = document.querySelector('.tabs-details'),
+      tabsForecast = document.querySelector('.tabs-forecast'),
+      detailsCurrentCity = document.querySelector('.details-current-city'),
+      detailsTemperature = document.querySelector('.temperature-details-content'),
+      detailsFeelsLike = document.querySelector('.feels_like-details-content'),
+      detailsWeather = document.querySelector('.weather-details-content'),
+      detailsSunrise = document.querySelector('.sunrise-details-content'),
+      detailsSunset = document.querySelector('.sunset-details-content');
 
+      
 const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const cityName = 'boston';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
 const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
 
-const cityList = [];
-let locationsItem = [];
+const cityArr = [];
+let locationsArr = [];
+
+searchForm.addEventListener('submit', getInputValue);
+addCity.addEventListener('click', AddLocations);
+locationsList.addEventListener('click', deleteAndCurrentCity);
+tabsList.addEventListener('click', switchTabs);
 
 if(localStorage.getItem('currentCity')) {
-  const currentCity = JSON.parse(localStorage.getItem('currentCity'));
-  const id = currentCity.id;
-  const city = currentCity.name;
-  const temperature = currentCity.temperature;
-  renderNow(id, city, temperature);
+  const response = JSON.parse(localStorage.getItem('currentCity'));
+  render(response);
 }
 
 if(localStorage.getItem('locationsList')) {
-  locationsItem = JSON.parse(localStorage.getItem('locationsList'));
-  renderLocationsList();
+  const response = JSON.parse(localStorage.getItem('locationsList'));
+  locationsArr = response;
+  renderAllLocations(response);
 }
-
-searchForm.addEventListener('submit', getInputValue);
-addCity.addEventListener('click', renderAddLocations);
-locationsList.addEventListener('click', deleteAndCurrentCity);
 
 function getInputValue(e) {
   e.preventDefault();
   const cityName = searchInput.value;
-  getWeather(cityName);
+  
+  getData(cityName);
   searchInput.value = '';
   searchInput.focus();
 }
 
-function getWeather(cityName) {
+function getData(cityName) {
   return new Promise((resolve, reject) => {
     fetch(`${serverUrl}?q=${cityName}&appid=${apiKey}`)
       .then(response => response.json())
-      .then(response => {
-        const temperature = (response.main.temp - 273.5).toFixed(1);
-        const city = response.name;
-        const id = response.id;
-        renderNow(id, city, temperature);
-        return response;
-      })
-      .then(response => {
-        cityList.push({
-          id: response.id,
-          name: response.name,
-          temperature: response.main.temp,
-        });
-      })
+      .then(response => render(response))
       .catch(err => console.log(`Text error - ${err}`));
   });
 }
 
-function renderNow(id, cityName, temperature) {
+function render(response) {
+
+  const id = response.id,
+        city = response.name,
+        temperature = (response.main.temp - 273.5).toFixed(1),
+        feelsLike = (response.main.feels_like - 273,5).toFixed(1),
+        weather = getWeather(response),
+        sunrise = getTime(response.sys.sunrise),
+        sunset = getTime(response.sys.sunset);
+
+  cityNow.textContent = city;
   temperatureNow.textContent = `${temperature}\u00B0`;
-  cityNow.textContent = cityName;
-  
-  const currentCity = {id: id, name: cityName, temperature: temperature};
-  addCurrentCityToLocalstorage(currentCity);
+  detailsCurrentCity.textContent = city;
+  detailsTemperature.textContent = `${temperature}\u00B0`;
+  detailsFeelsLike.textContent = feelsLike;
+  detailsWeather.textContent = weather;
+  detailsSunrise.textContent = sunrise;
+  detailsSunset.textContent = sunset;
+
+  cityArr.push(response);
+
+  addCurrentCityToLocalstorage(response);
 }
 
-function renderAddLocations() {
-  let name;
-  let cityInfo;
-
-  if(cityList.length === 0) return
-  else {
-    cityList.forEach(elem => {
-      name = elem.name;
-      cityInfo = elem;
-    });
-  }
-
-  locationsItem.push(cityInfo);
+function AddLocations() {
+  const res = JSON.parse(localStorage.getItem('currentCity'));
 
   const HTMLLocationsElement = `<li class="locations-item">
-  <a href="" class="locations-link">${name}</a>
+  <a href="" class="locations-link">${res.name}</a>
   <button class="delete-city"></button>
   </li>`
   locationsList.insertAdjacentHTML('beforeend', HTMLLocationsElement);
 
+  locationsArr.push(res);
+
   addLocationsToLocalStorage();
 }
 
-function renderLocationsList() {
-  
-  locationsItem.forEach(elem => {
-
+function renderAllLocations(response) {
+  response.forEach(elem => {
   const HTMLLocationsElement = `<li class="locations-item">
-    <a href="" class="locations-link">${elem.name}</a>
-    <button class="delete-city"></button>
-    </li>`
+  <a href="" class="locations-link">${elem.name}</a>
+  <button class="delete-city"></button>
+  </li>`
   locationsList.insertAdjacentHTML('beforeend', HTMLLocationsElement);
-  });
+  })
 }
 
 function deleteAndCurrentCity(e) {
@@ -111,10 +114,8 @@ function deleteAndCurrentCity(e) {
     const cityName = previousElement.textContent;
     
     const index = searchCity(cityName);
-    const index2 = searchCity2(cityName)
 
-    cityList.splice(index, 1);
-    locationsItem.splice(index2, 1);
+    locationsArr.splice(index, 1);
     parentNode.remove();
     addLocationsToLocalStorage();
   }
@@ -123,32 +124,56 @@ function deleteAndCurrentCity(e) {
     const parentNode = e.target.closest('.locations-link');
     const cityName = parentNode.textContent;
 
-    const city = locationsItem.filter(city => city.name === cityName);
-    city.forEach(item => {
-      const id = item.id;
-      const name = item.name;
-      const temperature = (item.temperature - 273.5).toFixed(1);
-
-      renderNow(id, name, temperature);
-    });
+    const city = locationsArr.filter(city => city.name === cityName);
+    const obj = Object.assign({}, city);
+    render(city[0]);
   }
-
 }
 
-function searchCity(cityName) {
-  const index = cityList.findIndex(city => city.name === cityName);
-  return index;
-}
-
-function searchCity2(cityName) {
-  const index = locationsItem.findIndex(city => city.name === cityName);
-  return index;
-}
-
-function addCurrentCityToLocalstorage(currentCity) {
-  localStorage.setItem('currentCity', JSON.stringify(currentCity));
+function addCurrentCityToLocalstorage(response) {
+  localStorage.setItem('currentCity', JSON.stringify(response));
 }
 
 function addLocationsToLocalStorage() {
-  localStorage.setItem('locationsList', JSON.stringify(locationsItem));
+  localStorage.setItem('locationsList', JSON.stringify(locationsArr));
+}
+
+function switchTabs(e) {
+  e.preventDefault();
+
+  if(e.target.textContent === 'Now') {
+    tabsNow.classList.remove('hidden');
+    tabsDetails.classList.add('hidden');
+    tabsForecast.classList.add('hidden');
+  } else if(e.target.textContent === 'Details') {
+    tabsNow.classList.add('hidden');
+    tabsDetails.classList.remove('hidden');
+    tabsForecast.classList.add('hidden');
+  } else if(e.target.textContent === 'Forecast') {
+    tabsNow.classList.add('hidden');
+    tabsDetails.classList.add('hidden');
+    tabsForecast.classList.remove('hidden');
+  }
+}
+
+function getWeather(response) {
+  let weather;
+  response.weather.forEach(res => {
+  weather = res.main;
+  })
+  return weather;
+}
+
+function getTime(time) {
+  let date = new Date(time * 1000);
+  let hours = date.getHours();
+  let minutes = "0" + date.getMinutes();
+  let seconds = "0" + date.getSeconds();
+  let formattedTime = `${hours}:${parseInt(minutes)}:${parseInt(seconds)}`
+  return formattedTime;
+}
+
+function searchCity(cityName) {
+  const index = locationsArr.findIndex(city => city.name === cityName);
+  return index;
 }
