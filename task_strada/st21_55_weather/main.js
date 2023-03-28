@@ -1,4 +1,4 @@
-import {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList, tabsList, tabsNow, tabsDetails, tabsForecast, detailsCurrentCity, detailsTemperature, detailsFeelsLike, detailsWeather, detailsSunrise, detailsSunset, serverUrl, cityName, apiKey, url} from './modules/constants.js';
+import {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList, tabsList, detailsCurrentCity, detailsTemperature, detailsFeelsLike, detailsWeather, detailsSunrise, detailsSunset, serverUrl, apiKey} from './modules/constants.js';
 
 import {switchTabs, getWeather, getTime, searchCity} from './modules/support_functions.js';
 
@@ -33,13 +33,11 @@ function getInputValue(e) {
 }
 
 function getData(cityName) {
-  return new Promise((resolve, reject) => {
-    fetch(`${serverUrl}?q=${cityName}&appid=${apiKey}`)
-      .then(response => response.json())
-      .then(response => render(response))
-      .catch(err => console.log(`Text error - ${err}`));
-  });
-}
+  fetch(`${serverUrl}?q=${cityName}&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(response => render(response))
+    .catch(err => console.log(`Text error - ${err}`));
+};
 
 function render(response) {
 
