@@ -1,3 +1,5 @@
+export {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList, tabsList, tabsNow, tabsDetails, tabsForecast, detailsCurrentCity, detailsTemperature, detailsFeelsLike, detailsWeather, detailsSunrise, detailsSunset, serverUrl, cityName, apiKey, url};
+
 const searchForm = document.querySelector('.search-form'),
       searchInput = document.querySelector('.search-input'),
       temperatureNow = document.querySelector('.temperature'),
@@ -20,5 +22,3 @@ const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const cityName = 'boston';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
 const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
-
-export {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList, tabsList, tabsNow, tabsDetails, tabsForecast, detailsCurrentCity, detailsTemperature, detailsFeelsLike, detailsWeather, detailsSunrise, detailsSunset, serverUrl, cityName, apiKey, url}

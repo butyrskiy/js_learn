@@ -21,7 +21,7 @@ a {
 
 a:hover {
   background-color: black;
-  color: burlywood;
+  color: #E1DCE0;
 }
 
 input {
@@ -34,6 +34,7 @@ input {
   height: 476px;
   margin: 10px auto;
   border: 1px solid black;
+  background-color: #BACBDB;
 }
 
 .hidden {
@@ -48,6 +49,7 @@ input {
 
 .search-input {
   font-size: 18px;
+  background-color: #BACBDB;
 }
 
 .search-icon {
