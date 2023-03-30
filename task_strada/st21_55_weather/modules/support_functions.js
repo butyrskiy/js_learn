@@ -1,6 +1,6 @@
-export {switchTabs, getWeather, getTime, searchCity};
+export {switchTabs, getWeather, getTime};
 
-import { locationsArr } from '../main.js';
+import { locations } from '../main.js';
 import {tabsNow, tabsDetails, tabsForecast} from './constants.js'
 
 function switchTabs(e) {
@@ -38,7 +38,7 @@ function getTime(time) {
   return formattedTime;
 }
 
-function searchCity(cityName) {
-  const index = locationsArr.findIndex(city => city.name === cityName);
-  return index;
-}
+// function searchCity(cityName) {
+//   const index = locations.findIndex(city => city.name === cityName);
+//   return index;
+// }

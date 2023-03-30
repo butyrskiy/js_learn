@@ -1,11 +1,14 @@
 import {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList, tabsList, detailsCurrentCity, detailsTemperature, detailsFeelsLike, detailsWeather, detailsSunrise, detailsSunset, serverUrl, apiKey} from './modules/constants.js';
 
-import {switchTabs, getWeather, getTime, searchCity} from './modules/support_functions.js';
+import {switchTabs, getWeather, getTime} from './modules/support_functions.js';
 
-export {locationsArr};
+export {locations};
 
 const cityArr = [];
-let locationsArr = [];
+
+const response = JSON.parse(localStorage.getItem('locations'));  
+const locations = new Set(response);
+renderAllLocations(response);
 
 searchForm.addEventListener('submit', getInputValue);
 addCity.addEventListener('click', AddLocations);
@@ -15,12 +18,6 @@ tabsList.addEventListener('click', switchTabs);
 if(localStorage.getItem('currentCity')) {
   const response = JSON.parse(localStorage.getItem('currentCity'));
   render(response);
-}
-
-if(localStorage.getItem('locationsList')) {
-  const response = JSON.parse(localStorage.getItem('locationsList'));
-  locationsArr = response;
-  renderAllLocations(response);
 }
 
 function getInputValue(e) {
@@ -72,7 +69,8 @@ function AddLocations() {
   </li>`
   locationsList.insertAdjacentHTML('beforeend', HTMLLocationsElement);
 
-  locationsArr.push(res);
+  // locationsArr.push(res);
+  locations.add(res);
 
   addLocationsToLocalStorage();
 }
@@ -94,9 +92,14 @@ function deleteAndCurrentCity(e) {
     const previousElement = e.target.previousElementSibling;
     const cityName = previousElement.textContent;
     
-    const index = searchCity(cityName);
 
-    locationsArr.splice(index, 1);
+    for(const item of locations) {
+      if(item.name === cityName) {
+        locations.delete(item);
+        console.log(item);
+      }
+    }
+
     parentNode.remove();
     addLocationsToLocalStorage();
   }
@@ -105,9 +108,13 @@ function deleteAndCurrentCity(e) {
     const parentNode = e.target.closest('.locations-link');
     const cityName = parentNode.textContent;
 
-    const city = locationsArr.filter(city => city.name === cityName);
-    const obj = Object.assign({}, city);
-    render(city[0]);
+    let city;
+    locations.forEach(cityInfo => {
+      if(cityInfo.name === cityName) {
+        city = cityInfo;
+      }
+    });
+    render(city);
   }
 }
 
@@ -116,5 +123,5 @@ function addCurrentCityToLocalstorage(response) {
 }
 
 function addLocationsToLocalStorage() {
-  localStorage.setItem('locationsList', JSON.stringify(locationsArr));
+  localStorage.setItem('locations', JSON.stringify([...locations]));
 }
