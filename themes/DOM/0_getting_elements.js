@@ -46,4 +46,55 @@ const link = document.querySelector('.link');
 // console.log(link.parentElement);
 
 // ? Метод Element.closest() возвращает ближайший родительский элемент (или сам элемент), который соответствует заданному CSS-селектору или null, если таковых элементов вообще нет.
-console.log(link.closest('.content'));
+// console.log(link.closest('.content'));
+
+
+
+const p = document.querySelector('.content');
+
+// ! СОЗДАНИЕ И ДОБАВЛЕНИЕ В DOM ЭЛЕМЕНТА
+// ? Для СОЗДАНИЯ элемента используется метод «create»
+const article = document.createElement('article');
+
+// ? Для работы с классами используется метод «classList»
+// ? ДОБАВИТЬ класс - метод «classList.add»
+article.classList.add('black')
+
+
+// Todo. Добавляем текстовые контент
+// ? Метод «innerHTML». Позволяет добавлять также HTML-разметку
+// * article.innerHTML = '<h2>This is new test element</h2>'
+
+// ? Метод «textContent»
+// * article.textContent = 'This is new test element';
+
+// ? Метод «insertAdjacentHTML». Позволяет более гибко добавить HTML-разметку в нужное нам место на странице 
+p.insertAdjacentHTML('afterend', '<h2>123</h2>');
+
+
+// Todo. ДОБАВИТЬ в НАЧАЛО или КОНЕЦ ВНУТРЬ нужного элемента
+// ? Метод «append» добавляет элемент в конец элемента куда добавляем
+// * p.append(article);
+
+// ? Метод «prepend» добавляет элемент в начало элемента
+// * p.prepend(article);
+
+
+// Todo. ДОБАВИТЬ ПЕРЕД или ПОСЛЕ элемента
+// ? Методы «before» и «after»
+
+// * p.before(article); // ? добавится ПЕРЕД элементом
+// * p.after(article); // ? добавится ПОСЛЕ элемента
+
+
+// Todo. УДАЛЕНИЕ ЭЛЕМЕНТА
+// ? Метод «remove»
+// * p.remove();
+
+
+// Todo. ЗАМЕНА элемента другим
+// ? Метод «replaceWith» заменит один элемент другим
+// * p.replaceWith(article);
+
+
+// ! Методы «appendChild», «insertBefore», «removeChild», «replaceChild» УСТАРЕВШИЕ
