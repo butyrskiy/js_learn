@@ -1,11 +1,11 @@
 const STATUS = {
-  TODO: 'Todo',
-  DONE: 'Done',
+  TODO: 'todo',
+  DONE: 'done',
 }
       
 const PRIORITY = {
-  LOW: 'Low',
-  HIGH: 'High',
+  LOW: 'low',
+  HIGH: 'high',
 }
 
 const highForm = document.querySelector('.high_task_form'),
@@ -24,14 +24,25 @@ lowTaskList.addEventListener('click', deleteTask);
 highTaskList.addEventListener('click', checkTask);
 lowTaskList.addEventListener('click', checkTask);
 
+
 let tasks = [];
 
-function addTask(event) {
-  event.preventDefault();
+if(JSON.parse(localStorage.getItem('tasks'))) {
+  const response = JSON.parse(localStorage.getItem('tasks'));
+  tasks = response;
+  
+  tasks.forEach(task => {
+    render(task, task.status);
+  })
+}
+
+
+function addTask(e) {
+  e.preventDefault();
   let priority;
   let taskText;
 
-  if(event.target.className === 'high_task_form') {
+  if(e.target.className === 'high_task_form') {
     priority = PRIORITY.HIGH;
     taskText = highInput.value;
   } else {
@@ -48,27 +59,27 @@ function addTask(event) {
   
   tasks.push(newTask);
   render(newTask);
+  addToLocalStorage();
   
   highInput.value = '';
   lowInput.value = '';
-
-  console.log(tasks);
 }
+
 
 function deleteTask(event) {
   if(event.target.className === 'delete_button') {
     const parentNode = event.target.closest('.task');
     const previousElement = event.target.previousElementSibling;
     const taskContent = previousElement.textContent;
-    
+
     const index = searchTaskIndex(taskContent);
 
     tasks.splice(index, 1);
     parentNode.remove();
-
-    console.log(tasks);
+    addToLocalStorage();
   }
 }
+
 
 function checkTask(event) {
   const parentNode = event.target.parentNode;
@@ -80,35 +91,38 @@ function checkTask(event) {
   if(event.target.className === 'radio') {
     parentNode.classList.toggle('done');
     tasks[index].status = STATUS.DONE;
+    addToLocalStorage();
   }
-
-  console.log(tasks);
 }
 
 function searchTaskIndex(taskContent) {
   const index = tasks.findIndex(task => task.name === taskContent);
-
     return index;
 }
 
-function render(task) {
 
-  const highTaskHTML = `<div class="task">
+function render(task, status) {
+  console.log(status);
+
+  const highTaskHTML = `<div class="task ${status}">
   <input class="radio" type="radio">
   <p class="task_text">${task.name}</p>
   <button class="delete_button" type="submit"></button>
 </div>`;
 
-  const lowTaskHTML = `<div class="task">
+  const lowTaskHTML = `<div class="task ${status}">
   <input class="radio" type="radio">
   <p class="task_text">${task.name}</p>
   <button class="delete_button" type="submit"></button>
   </div>`;
 
-
-  if(task.priority == PRIORITY.HIGH) {
-    highTaskList.insertAdjacentHTML('beforeend', highTaskHTML);
+  if(task.priority === PRIORITY.HIGH) {
+    highTaskList.insertAdjacentHTML('afterbegin', highTaskHTML);
   } else {
-    lowTaskList.insertAdjacentHTML('beforeend', lowTaskHTML);
+    lowTaskList.insertAdjacentHTML('afterbegin', lowTaskHTML);
   }
+}
+
+function addToLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
