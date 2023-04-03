@@ -64,8 +64,7 @@ form {
   height: 21px;
 }
 
-.new_task_high,
-.new_task_low {
+.task {
   position: relative;
   margin: 8px 0px;
 }
