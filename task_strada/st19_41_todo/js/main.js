@@ -1,19 +1,7 @@
-const STATUS = {
-  TODO: 'todo',
-  DONE: 'done',
-}
-      
-const PRIORITY = {
-  LOW: 'low',
-  HIGH: 'high',
-}
+import { STATUS, PRIORITY, highForm, lowForm, highInput, lowInput, highTaskList, lowTaskList } from '../modules/constants.js';
+import { checkTask, searchTaskIndex } from '../modules/support_functions.js';
 
-const highForm = document.querySelector('.high_task_form'),
-      lowForm = document.querySelector('.low_task_form'),
-      highInput = document.querySelector('.high_input'),
-      lowInput = document.querySelector('.low_input'),
-      highTaskList = document.querySelector('.high_task_list'),
-      lowTaskList = document.querySelector('.low_task_list');
+export {tasks, addToLocalStorage};
 
 highForm.addEventListener('submit', addTask);
 lowForm.addEventListener('submit', addTask);
@@ -37,6 +25,14 @@ if(JSON.parse(localStorage.getItem('tasks'))) {
 }
 
 
+function Task(taskText, status, priority) {
+  this.id = Date.now(),
+  this.name = taskText,
+  this.status = status,
+  this.priority = priority
+}
+
+
 function addTask(e) {
   e.preventDefault();
   let priority;
@@ -50,15 +46,10 @@ function addTask(e) {
     taskText = lowInput.value;
   }
 
-  const newTask = {
-    id: Date.now(),
-    name: taskText,
-    status: STATUS.TODO,
-    priority: priority,
-  }
-  
-  tasks.push(newTask);
-  render(newTask);
+  const newTasks = new Task(taskText, STATUS.TODO, priority);
+
+  tasks.push(newTasks);
+  render(newTasks);
   addToLocalStorage();
   
   highInput.value = '';
@@ -81,28 +72,7 @@ function deleteTask(event) {
 }
 
 
-function checkTask(event) {
-  const parentNode = event.target.parentNode;
-  const childNode = parentNode.children[1];
-  const taskContent = childNode.textContent;
-  
-  const index = searchTaskIndex(taskContent);  
-
-  if(event.target.className === 'radio') {
-    parentNode.classList.toggle('done');
-    tasks[index].status = STATUS.DONE;
-    addToLocalStorage();
-  }
-}
-
-function searchTaskIndex(taskContent) {
-  const index = tasks.findIndex(task => task.name === taskContent);
-    return index;
-}
-
-
 function render(task, status) {
-  console.log(status);
 
   const highTaskHTML = `<div class="task ${status}">
   <input class="radio" type="radio">
@@ -122,6 +92,7 @@ function render(task, status) {
     lowTaskList.insertAdjacentHTML('afterbegin', lowTaskHTML);
   }
 }
+
 
 function addToLocalStorage() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
