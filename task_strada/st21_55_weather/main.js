@@ -29,12 +29,18 @@ function getInputValue(e) {
   searchInput.focus();
 }
 
-function getData(cityName) {
-  fetch(`${serverUrl}?q=${cityName}&appid=${apiKey}`)
-    .then(response => response.json())
-    .then(response => render(response))
-    .catch(err => console.log(`Text error - ${err}`));
-};
+
+async function getData(cityName) {
+  try {
+    const data = await fetch(`${serverUrl}?q=${cityName}&appid=${apiKey}`);
+    const dataToJSON = await data.json();
+    render(dataToJSON)
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
 
 function render(response) {
 
