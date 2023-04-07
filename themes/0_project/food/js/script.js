@@ -1,5 +1,6 @@
 import { hideTabContent, showTabContent } from "../modules/tabs.js";
 import { tabs, tabsParent } from "../modules/constants.js";
+import { getTimeRemaining, deadline, setClock } from "../modules/timer.js";
 
 tabsParent.addEventListener('click', (e) => {
   const target = e.target;
@@ -16,3 +17,5 @@ tabsParent.addEventListener('click', (e) => {
 
 hideTabContent();
 showTabContent();
+getTimeRemaining(deadline);
+setClock('.timer', deadline);
