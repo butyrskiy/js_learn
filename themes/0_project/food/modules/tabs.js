@@ -1,5 +1,5 @@
-export {hideTabContent, showTabContent};
-import { tabs, tabsContent } from "../js/script.js";
+export { hideTabContent, showTabContent };
+import { tabs, tabsContent } from "./constants.js";
 
 
 function hideTabContent() {

@@ -1,11 +1,5 @@
 import { hideTabContent, showTabContent } from "../modules/tabs.js";
-export { tabs, tabsContent };
-
-
-const tabs = document.querySelectorAll('.tabheader__item'),
-      tabsContent = document.querySelectorAll('.tabcontent'),
-      tabsParent = document.querySelector('.tabheader__items');
-
+import { tabs, tabsParent } from "../modules/constants.js";
 
 tabsParent.addEventListener('click', (e) => {
   const target = e.target;
