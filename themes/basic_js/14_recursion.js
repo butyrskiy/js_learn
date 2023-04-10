@@ -40,6 +40,7 @@ function f3() {
 // console.log(out);
 
 
+
 // Todo. Более сложный пример рекурсии
 // ? Посчитаем за какое количество шагов мы наберём нужную нам сумму - 300
 
@@ -117,12 +118,55 @@ function userParentRecursion(obj) {
   if(obj.parent !== undefined) {
     for(let key in obj.parent) {
       console.log(key);
-      userParentRecursion(obj.parent[key]);
+      // userParentRecursion(obj.parent[key]);
     }
   }
 }
 
 for(let key in users) {
-  console.log(key);
-  userParentRecursion(users[key]);
+  // console.log(key);
+  // userParentRecursion(users[key]);
 }
+
+
+
+// Todo. Возведение в степень
+
+const pow = (x, n) => {
+  let result = 1;
+
+  for(let i = 0; i < n; i++) {
+    result *= x;
+  }
+  return result;
+}
+
+// console.log(pow(2, 4)); // 16
+// console.log(pow(2, 2)); // 4
+
+
+
+// Todo. ФАКТОРИАЛ
+// ? Вычисление факториала циклом
+
+function factorialCycle(n) {
+  let result = 1;
+
+  for(let i = 0; i < n; i++) {
+    result *= i + 1;
+  }
+  
+  return result;
+}
+// factorialCycle(5); // 120
+
+
+// ? Вычисление факториала рекурсией
+
+function factorial(n) {
+  if (n === 1) return 1;
+
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(5)); // 120
