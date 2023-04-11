@@ -2,7 +2,6 @@ import {searchForm, searchInput, temperatureNow, cityNow, addCity, locationsList
 
 import {switchTabs, getWeather, getTime} from './modules/support_functions.js';
 
-export {locations};
 
 const cityArr = [];
 
@@ -75,7 +74,6 @@ function AddLocations() {
   </li>`
   locationsList.insertAdjacentHTML('beforeend', HTMLLocationsElement);
 
-  // locationsArr.push(res);
   locations.add(res);
 
   addLocationsToLocalStorage();

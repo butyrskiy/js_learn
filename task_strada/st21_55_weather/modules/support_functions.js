@@ -1,7 +1,7 @@
 export {switchTabs, getWeather, getTime};
 
-import { locations } from '../main.js';
 import {tabsNow, tabsDetails, tabsForecast} from './constants.js'
+
 
 function switchTabs(e) {
   e.preventDefault();
@@ -21,13 +21,15 @@ function switchTabs(e) {
   }
 }
 
+
 function getWeather(response) {
   let weather;
   response.weather.forEach(res => {
   weather = res.main;
-  })
+  });
   return weather;
 }
+
 
 function getTime(time) {
   let date = new Date(time * 1000);
@@ -37,8 +39,3 @@ function getTime(time) {
   let formattedTime = `${hours}:${parseInt(minutes)}:${parseInt(seconds)}`
   return formattedTime;
 }
-
-// function searchCity(cityName) {
-//   const index = locations.findIndex(city => city.name === cityName);
-//   return index;
-// }
