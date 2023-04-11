@@ -73,9 +73,11 @@ button {
 }
 
 .left-section {
+  width: 297px;
+  height: 408px;
   display: flex;
   flex-direction: column;
-  width: 297px;
+  justify-content: space-between;
   border-right: 1px solid black;
 }
 
@@ -120,13 +122,9 @@ button {
   margin-right: 13px;
 }
 
-/* .tabs-details {
-  display: none;
-} */
-
 .details-current-city {
-  margin-left: 10px;
   font-size: 35px;
+  margin-left: 10px;
 }
 
 
@@ -190,4 +188,56 @@ button {
   cursor: pointer;
   width: 29px;
   height: 24px;
+}
+
+.forecast-current-city {
+  font-size: 35px;
+  margin: 0;
+  margin: 10px;
+  margin-bottom: 15px;
+}
+
+.forecast-list-item {
+  height: 120px;
+  width: 256px;
+  margin-left: 10px;
+  padding-bottom: 10px;
+  border: 1px solid black;
+}
+
+.forecast-list-item-box {
+  padding: 10px;
+  padding-top: 5px;
+}
+
+.forecast-card {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.top-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 46px;
+}
+
+.temperature-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.temperature-status {
+  display: flex;
+  flex-direction: column;
+}
+
+.forecast-icon {
+  width: 31px;
+  height: 31px;
 }
