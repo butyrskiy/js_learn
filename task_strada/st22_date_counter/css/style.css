@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-color: rgb(168 168 169);
+}
+
+/* .container {
+  min-width: 350px;
+} */
+
+.form_title {
+  margin-top: 25px;
+}
+
+.set_date {
+  margin-top: 5px;
+}
+
+h2 {
+  margin-top: 55px;
+}
+
+.timer_box {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.timer {
+  background-color: rgb(181 181 181);
+  padding: 15px;
+  min-width: 85px;
+}
+
+.timer_value {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.timer_title {
+  font-size: 15px;
+}
