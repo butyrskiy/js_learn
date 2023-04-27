@@ -1,5 +1,0 @@
-export { tabs, tabsContent, tabsParent };
-
-const tabs = document.querySelectorAll('.tabheader__item'),
-      tabsContent = document.querySelectorAll('.tabcontent'),
-      tabsParent = document.querySelector('.tabheader__items');
